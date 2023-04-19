@@ -66,7 +66,7 @@ export class CheckoutComponent implements OnInit {
     const email = JSON.parse(this.storage.getItem('userEmail')!);
 
     this.checkoutFormGroup = this.formBuilder.group({
-      customer: this.formBuilder.group({
+      addressForm: this.formBuilder.group({
         firstName: new FormControl('', [
           Validators.required,
           Validators.minLength(2),
@@ -77,6 +77,17 @@ export class CheckoutComponent implements OnInit {
           Validators.minLength(2),
           CartifyValidators.notOnlyWhitespace,
         ]),
+        street: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          CartifyValidators.notOnlyWhitespace,
+        ]),
+        city: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          CartifyValidators.notOnlyWhitespace,
+        ]),
+        state: new FormControl('', [Validators.required]),
         email: new FormControl(email, [
           Validators.required,
           Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),

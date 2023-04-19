@@ -1,10 +1,10 @@
-<div class="main-content page-m">
+<!-- <div class="main-content page-m">
   <div class="section-content section-content-p30">
     <div class="container-fluid">
-      <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()">
+      <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()"> -->
 
         <!-- customer form group -->
-        <div formGroupName="customer" class="form-area">
+        <!-- <div formGroupName="customer" class="form-area">
           <h3>Customer</h3>
 
           <div class="row">
@@ -70,10 +70,10 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- shipping address -->
-        <div formGroupName="shippingAddress" class="form-area">
+        <!-- <div formGroupName="shippingAddress" class="form-area">
           <h3>Shipping Address</h3>
 
           <div class="row">
@@ -187,18 +187,18 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- Add Checkbox to copy shipping to billing -->
-        <div class="input-space">
+        <!-- <div class="input-space">
           <label class="au-checkbox">
             <input type="checkbox" (change)="copyShippingAddressToBillingAddress($event)">
             <span class="au-checkmark"></span>Billing Address same as Shipping Address
           </label>
-        </div>
+        </div> -->
 
         <!-- Billing Address -->
-          <div formGroupName="billingAddress" class="form-area">
+          <!-- <div formGroupName="billingAddress" class="form-area">
             <h3>Billing Address</h3>
 
             <div class="row">
@@ -310,37 +310,61 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- Stripe Elements Credit Card Sections -->
-          <div formGroupName="creditCard" class="form-area">
+          <!-- <div formGroupName="creditCard" class="form-area">
             <h3>Credit or Debit Card</h3>
 
-            <div id="card-element">
+            <div id="card-element"> -->
               <!-- A Stripe Element will be inserted here. -->
 
-            </div>
+            <!-- </div> -->
 
             <!-- Used to display form errors -->
-            <div id="card-errors" class="displayError.textContent!=='': 'alert alert-danger mt-1'"></div>
-          </div>
+            <!-- <div id="card-errors" class="displayError.textContent!=='': 'alert alert-danger mt-1'"></div>
+          </div> -->
 
 
           <!-- Order Details -->
-          <div class="form-area">
+          <!-- <div class="form-area">
             <h3>Review Your Order</h3>
 
             <p>Total Quantity: {{ totalQuantity }}</p>
             <p>Shipping: FREE</p>
             <p>Total Price: {{ totalPrice | currency: 'USD' }}</p>
-          </div>
+          </div> -->
 
         <!-- submit button -->
-        <div class="text-center">
+        <!-- <div class="text-center">
           <button type="submit" class="btn btn-info" [disabled]="isDisabled">Purchase</button>
         </div>
 
       </form>
+    </div>
+  </div>
+</div> -->
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-8">
+      <app-stepper [linearModeSelected]="false" #appStepper>
+        <cdk-step [label]="'Address'">
+          <app-checkout-address></app-checkout-address>
+        </cdk-step>
+        <cdk-step [label]="'Delivery'">
+          <app-checkout-delivery></app-checkout-delivery>
+        </cdk-step>
+        <cdk-step [label]="'Review'">
+          <app-checkout-review></app-checkout-review>
+        </cdk-step>
+        <cdk-step [label]="'Payment'">
+          <app-checkout-payment></app-checkout-payment>
+        </cdk-step>
+      </app-stepper>
+    </div>
+    <div class="col-4">
+      <app-cart-details-total></app-cart-details-total>
     </div>
   </div>
 </div>

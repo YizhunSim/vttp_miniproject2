@@ -1,4 +1,4 @@
-<div class="menu-sidebar-content js-scrollbar1">
+<!-- <div class="menu-sidebar-content js-scrollbar1">
   <nav class="navbar-sidebar">
     <ul class="list-unstyled navbar-list">
       <li *ngFor="let tempProductCategory of productCategories">
@@ -12,4 +12,25 @@
       </li>
     </ul>
   </nav>
-</div>
+</div> -->
+
+<h5 class="text-warning ms-3">Sort</h5>
+<select class="form-select mb-4" (change)="onSortSelected($event)" #sortCriteria>
+  <option *ngFor="let sort of sortOptions" [value]="sort.value">
+     {{ sort.name}}
+  </option>
+
+</select>
+
+<h5 class="text-warning ms-3">Category</h5>
+<ul class="list-group my-3">
+  <li class="list-group-item" *ngFor="let productCategory of productCategories">
+    <button
+      routerLink="/category/{{ productCategory.id }}/{{
+        productCategory.categoryName}}/{{sortCriteria.value}}"
+      routerLinkActive="active-link"
+    >
+      {{ productCategory.categoryName }}
+    </button>
+  </li>
+</ul>

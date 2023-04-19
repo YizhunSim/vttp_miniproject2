@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { CartItem } from '../common/cart-item';
+import { Product } from '../common/product';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +50,57 @@ export class CartService {
     // compute cart total price and total quantity
     this.computeCartTotals();
   }
+
+
+
+  /* Used in product-detail component  */
+  addItemToCart(product : Product, quantity: number) {
+    const item = this.mapProductItemToBasketItem(product, quantity);
+    console.log(`addItemToCart: ${item.id}, ${item.name}, ${item.unitPrice}, quantity: ${quantity}`)
+    this.addToCart(item);
+  }
+
+  removeItemFromCart(id: string, quantity : number = 1){
+    const cart = this.cartItems;
+    if (!cart) return;
+    const existingItem = cart.find(tempCartItem => tempCartItem.id === id);
+    if (existingItem) {
+      existingItem.quantity -= quantity;
+      if (existingItem.quantity === 0) {
+        this.remove(existingItem);
+      }
+    }
+  }
+
+
+  // private addOrUpdateItem(items: CartItem[], itemToAdd: CartItem, quantity: number): CartItem[] {
+  //   const item = items.find(x => x.id === itemToAdd.id);
+  //   if (item) item.quantity += quantity;
+  //   else {
+  //     itemToAdd.quantity = quantity;
+  //     items.push(itemToAdd);
+  //   }
+  //   return items;
+  // }
+
+  // private createBasket(): Basket {
+  //   const basket = new Basket();
+  //   localStorage.setItem('basket_id', basket.id);
+  //   return basket;
+  // }
+
+  private mapProductItemToBasketItem(item: Product, quantity: number): CartItem {
+    return {
+      id: item.id,
+      name: item.name,
+      imageUrl: item.imageUrl,
+      unitPrice: item.unitPrice,
+      quantity: quantity
+    }
+  }
+
+
+
 
   computeCartTotals() {
     let totalPriceValue: number = 0

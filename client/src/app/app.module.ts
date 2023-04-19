@@ -17,49 +17,66 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 
-import { OktaAuthGuard, OktaAuthModule, OktaCallbackComponent, OKTA_CONFIG } from '@okta/okta-angular';
 
-import { OktaAuth } from '@okta/okta-auth-js';
-
-import myAppConfig from './config/my-app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
-import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { ShopComponent } from './components/shop/shop.component';
+import { ProductItemComponent } from './components/product-item/product-item.component';
+import { PagingHeaderComponent } from './components/paging-header/paging-header.component';
+import { PagerComponent } from './components/pager/pager.component';
+import { CoreModule } from './core/core.module';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './components/home/home.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CartDetailsTotalComponent } from './components/cart-details-total/cart-details-total.component';
+import { StepperComponent } from './components/stepper/stepper.component';
+import {CdkStepperModule} from '@angular/cdk/stepper';
+import { CheckoutAddressComponent } from './components/checkout/checkout-address/checkout-address.component';
+import { CheckoutDeliveryComponent } from './components/checkout/checkout-delivery/checkout-delivery.component';
+import { CheckoutReviewComponent } from './components/checkout/checkout-review/checkout-review.component';
+import { CheckoutPaymentComponent } from './components/checkout/checkout-payment/checkout-payment.component';
 
-const oktaConfig = myAppConfig.oidc;
-const oktaAuth = new OktaAuth(oktaConfig);
-
-function sendToLoginPage(oktaAuth : OktaAuth, injector: Injector){
-  // Use injector to access any service available within your application
-  const router = injector.get(Router)
-
-  // Redirect the user to your custom login page
-  router.navigate(['/login'])
-}
-
-const routes: Routes = [
-
-  { path: 'order-history', component: OrderHistoryComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired: sendToLoginPage}},
-  { path: 'members', component: MembersPageComponent, canActivate: [OktaAuthGuard], data: { onAuthRequired: sendToLoginPage}},
-
-  { path: 'login/callback', component: OktaCallbackComponent},
-  { path: 'login', component: LoginComponent},
-
-  { path: 'checkout', component: CheckoutComponent},
-  { path: 'cart-details', component: CartDetailsComponent},
-  { path: 'products/:id', component: ProductDetailsComponent },
-  { path: 'search/:keyword', component: ProductListComponent },
-  { path: 'category/:id/:name', component: ProductListComponent },
-  { path: 'category', component: ProductListComponent },
-  { path: 'products', component: ProductListComponent },
-  { path: '', redirectTo: '/products', pathMatch: 'full' },
-  { path: '**', redirectTo: '/products', pathMatch: 'full' },
-];
 
 @NgModule({
-  declarations: [AppComponent, ProductListComponent, ProductCategoryMenuComponent, SearchComponent, ProductDetailsComponent, CartStatusComponent, CartDetailsComponent, CheckoutComponent, LoginComponent, LoginStatusComponent, MembersPageComponent, OrderHistoryComponent],
-  imports: [RouterModule.forRoot(routes), BrowserModule, HttpClientModule, NgbModule, ReactiveFormsModule, OktaAuthModule],
-  providers: [ProductService, {provide: OKTA_CONFIG, useValue: {oktaAuth}}, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
+  declarations: [
+    AppComponent,
+    ProductListComponent,
+    ProductCategoryMenuComponent,
+    SearchComponent,
+    ProductDetailsComponent,
+    CartDetailsComponent,
+    CheckoutComponent,
+    LoginComponent,
+    MembersPageComponent,
+    OrderHistoryComponent,
+    ShopComponent,
+    ProductItemComponent,
+    PagingHeaderComponent,
+    PagerComponent,
+    HomeComponent,
+    CartDetailsTotalComponent,
+    StepperComponent,
+    CheckoutAddressComponent,
+    CheckoutDeliveryComponent,
+    CheckoutReviewComponent,
+    CheckoutPaymentComponent
+
+  ],
+  imports: [
+    AppRoutingModule,
+    CoreModule,
+    BrowserModule,
+    HttpClientModule,
+    NgbModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    CarouselModule.forRoot(),
+    CdkStepperModule
+  ],
+  providers: [
+    ProductService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

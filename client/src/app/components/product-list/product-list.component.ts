@@ -7,7 +7,7 @@ import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-list',
-  templateUrl: './product-list-grid.component.html',
+  templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
@@ -16,6 +16,7 @@ export class ProductListComponent implements OnInit {
   previousCategoryId: number = 1;
   currentCategoryName: string = '';
   searchMode: boolean = false;
+  sortCriteria: string = 'name';
 
   // properties for pagination
   pageNumber: number = 1;
@@ -32,6 +33,11 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => {
+      this.listProducts();
+    });
+
+    this.productService.sortCriteria.subscribe((sortCriteria: string) => {
+      this.sortCriteria = sortCriteria;
       this.listProducts();
     });
   }
@@ -77,6 +83,7 @@ export class ProductListComponent implements OnInit {
       // not category id available ... default to category id 1
       this.currentCategoryId = 1;
       this.currentCategoryName = 'Books';
+      this.sortCriteria = 'name';
     }
 
     // Check if we have a different category than previous
@@ -97,7 +104,8 @@ export class ProductListComponent implements OnInit {
     this.productService.getProductListPaginate(
       this.pageNumber - 1,
       this.pageSize,
-      this.currentCategoryId
+      this.currentCategoryId,
+      this.sortCriteria
     ).subscribe(this.processResult());
   }
 

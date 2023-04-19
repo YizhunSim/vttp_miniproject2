@@ -1,4 +1,4 @@
-<div class="main-content">
+<!-- <div class="main-content">
   <div class="section-content section-content-p30">
     <div class="container-fluid">
 
@@ -73,12 +73,77 @@
           </tr>
         </table>
 
-      </div>
+      </div> -->
 
-      <!-- if cart is empty then display a message -->
-      <div *ngIf="cartItems.length == 0" class="alert alert-warning col-md-12" role="alert">
+<!-- if cart is empty then display a message -->
+<!-- <div *ngIf="cartItems.length == 0" class="alert alert-warning col-md-12" role="alert">
         Your shopping cart is empty.
       </div>
     </div>
   </div>
+</div> -->
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="table-responsive" *ngIf="cartItems.length > 0">
+      <table class="table">
+        <thead class="bg-light text-uppercase">
+          <tr>
+            <th><div class="py-2">Product</div></th>
+            <th><div class="py-2">Price</div></th>
+            <th><div class="py-2">Quantity</div></th>
+            <th><div class="py-2">Total</div></th>
+            <th><div class="py-2">Remove</div></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cartItem of cartItems">
+            <th>
+              <div class="p-2 d-inline-block">
+                <img src="{{ cartItem.imageUrl}}" alt="{{ cartItem.name}}" class="img-fluid" style="max-height: 50px;">
+                <div class="ms-3 d-inline-block align-middle">
+                  <h5 class="mb-0">
+                    <a class="text-dark text-decoration-none">
+                      {{ cartItem.name}}
+                    </a>
+                  </h5>
+
+                </div>
+              </div>
+            </th>
+            <td class="align-middle"><strong>{{cartItem.unitPrice | currency: 'USD'}}</strong></td>
+            <td class="align-middle">
+              <div class="d-flex align-items-center">
+                <i (click)="decrementQuantity(cartItem)" class="fa fa-minus-circle text-warning me-2" style="cursor: pointer; font-size: 2em;"></i>
+                <strong style="font-size: 1.5em;">{{cartItem.quantity}}</strong>
+                <i (click)="incrementQuantity(cartItem)" class="fa fa-plus-circle text-warning mx-2" style="cursor: pointer; font-size:2em;"></i>
+              </div>
+            </td>
+            <td class="align-middle"><strong>{{cartItem.unitPrice * cartItem.quantity | currency}}</strong></td>
+            <td class="align-middle">
+              <a class="text-danger">
+                <i (click)="remove(cartItem)" class="fa fa-trash" style="font-size: 2em; cursor: pointer;"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-6 offset-6">
+      <app-cart-details-total></app-cart-details-total>
+      <div class="d-grid">
+        <a routerLink="/checkout" class="btn btn-outline-success py-2">
+          Proceed to checkout
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="cartItems.length == 0" class="alert alert-warning col-md-12" role="alert">
+  Your shopping cart is empty.
+</div>
+
 </div>

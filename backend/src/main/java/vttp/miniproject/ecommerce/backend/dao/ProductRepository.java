@@ -22,4 +22,23 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
         http://localhost:8080/api/products/search/findByNameContaining?name={{name}}
      */
     Page<Product> findByNameContaining(@Param("name") String name, Pageable pageable);
+
+    /*
+         SELECT * FROM PRODUCT WHERE category_id = ? ORDER BY unit_price asc;
+         http://localhost:8080/api/products/search/findByCategoryIdOrderByUnitPriceAsc?id={{id}}
+     */
+    Page<Product> findByCategoryIdOrderByUnitPriceAsc(@Param("id")Long id, Pageable pageable);
+
+    /*
+       SELECT * FROM PRODUCT WHERE category_id = ? ORDER BY unit_price desc;
+       http://localhost:8080/api/products/search/findByCategoryIdOrderByUnitPriceDesc?id={{id}}
+   */
+    Page<Product> findByCategoryIdOrderByUnitPriceDesc(@Param("id")Long id, Pageable pageable);
+
+    /*
+    SELECT * FROM PRODUCT WHERE category_id = ? ORDER BY unit_price desc;
+    http://localhost:8080/api/products/search/findByCategoryIdOrderByName?id={{id}}
+*/
+    Page<Product> findByCategoryIdOrderByName(@Param("id")Long id, Pageable pageable);
+
 }

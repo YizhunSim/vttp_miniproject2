@@ -1,3 +1,59 @@
-<p *ngFor="let tempProduct of products">
-  {{ tempProduct.name}}: {{ tempProduct.unitPrice | currency:'USD'}}
-</p>
+<div class="container">
+  <div class="row">
+    <section class="col-3">
+      <app-product-category-menu></app-product-category-menu>
+    </section>
+    <section class="col-9">
+      <div class="d-flex justify-content-between align-items-center pb-2">
+        <app-paging-header
+          [totalElements]="totalElements"
+          [pageNumber]="pageNumber"
+          [pageSize]="pageSize"
+        >
+        </app-paging-header>
+
+        <app-search></app-search>
+      </div>
+
+      <div class="row row-cols-3 g-3">
+        <div class="col" *ngFor="let product of products">
+          <app-product-item [product]="product"></app-product-item>
+        </div>
+
+        <!-- if products empty then display a message -->
+        <div
+          *ngIf="products?.length == 0"
+          class="alert alert-warning col-md-12"
+          role="alert"
+        >
+          No Products Found.
+        </div>
+      </div>
+
+      <!-- Pager -->
+      <div class="d-flex justify-content-center mt-2" *ngIf="totalElements > 0">
+        <ngb-pagination
+          [(page)]="pageNumber"
+          [pageSize]="pageSize"
+          [collectionSize]="totalElements"
+          [maxSize]="5"
+          [boundaryLinks]="true"
+          (pageChange)="listProducts()"
+        >
+        </ngb-pagination>
+
+        <div class="col-md-3 mt-2" style="text-align: right">
+          <span class="mr-2">Page Size</span>
+
+          <select #myPageSelect (change)="updatePageSize(myPageSelect.value)">
+            <option value="2">2</option>
+            <option selected="true">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+          </select>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

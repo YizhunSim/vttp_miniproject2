@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Product } from '../common/product';
@@ -14,6 +14,8 @@ export class ProductService {
 
   private categoryUrl = environment.cartifyApiUrl + '/product-category';
 
+  sortCriteria: Subject<string> = new Subject<string>();
+
   constructor(private httpClient: HttpClient) {}
 
   getProduct(productId: number): Observable<Product> {
@@ -25,18 +27,36 @@ export class ProductService {
   getProductListPaginate(
     page: number,
     pageSize: number,
-    categoryId: number
+    categoryId: number,
+    sortCriteria: string
   ): Observable<GetResponseProducts> {
-    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}&page=${page}&size=${pageSize}`;
-
+    let searchUrl = '';
+    if (sortCriteria == "name") {
+      searchUrl = `${this.baseUrl}/search/findByCategoryIdOrderByName?id=${categoryId}&page=${page}&size=${pageSize}`;
+    }
+    if (sortCriteria == "priceAsc") {
+      searchUrl = `${this.baseUrl}/search/findByCategoryIdOrderByUnitPriceAsc?id=${categoryId}&page=${page}&size=${pageSize}`;
+    }
+    if (sortCriteria == "priceDesc") {
+      searchUrl = `${this.baseUrl}/search/findByCategoryIdOrderByUnitPriceDesc?id=${categoryId}&page=${page}&size=${pageSize}`;
+    }
     console.log(`Getting products from - ${searchUrl}`)
     return this.httpClient.get<GetResponseProducts>(searchUrl);
   }
 
-  getProductList(categoryId: number): Observable<Product[]> {
-    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
-    return this.getProducts(searchUrl);
-  }
+  // getProductList(categoryId: number, sortCriteria: string): Observable<Product[]> {
+  //   const searchUrl = '';
+  //   if (sortCriteria == "name") {
+  //     const searchUrl = `${this.baseUrl}/search/findByCategoryOrderByName?id=${categoryId}`;
+  //   }
+  //   if (sortCriteria == "priceAsc") {
+  //     const searchUrl = `${this.baseUrl}/search/findByCategoryOrderByUnitPriceAsc?id=${categoryId}`;
+  //   }
+  //   if (sortCriteria == "priceDesc") {
+  //     const searchUrl = `${this.baseUrl}/search/findByCategoryOrderByUnitPriceDesc?id=${categoryId}`;
+  //   }
+  //   return this.getProducts(searchUrl);
+  // }
 
   searchProducts(keyword: string): Observable<Product[]> {
     const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${keyword}`;

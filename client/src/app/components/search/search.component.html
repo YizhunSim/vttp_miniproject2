@@ -1,4 +1,4 @@
-<div class="form-header">
+<!-- <div class="form-header">
   <input
     #myInput
     type="text"
@@ -8,4 +8,9 @@
   />
 
   <button (click)="doSearch(myInput.value)" class="au-btn-submit" >Search</button>
+</div> -->
+<div class="d-flex mt-2">
+<input #searchInput type="text" placeholder="Search" class="form-control me-2" (keyup.enter)="doSearch(searchInput.value)">
+<button (click)="doSearch(searchInput.value)" class="btn btn-outline-primary mx-2">Search</button>
+<button (click)="doReset()" class="btn btn-outline-success">Reset</button>
 </div>
