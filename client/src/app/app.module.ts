@@ -13,7 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 
@@ -36,6 +36,11 @@ import { CheckoutAddressComponent } from './components/checkout/checkout-address
 import { CheckoutDeliveryComponent } from './components/checkout/checkout-delivery/checkout-delivery.component';
 import { CheckoutReviewComponent } from './components/checkout/checkout-review/checkout-review.component';
 import { CheckoutPaymentComponent } from './components/checkout/checkout-payment/checkout-payment.component';
+import { TextInputComponent } from './components/text-input/text-input.component';
+import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
+import { CheckoutSuccessComponent } from './components/checkout/checkout-success/checkout-success.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 
 @NgModule({
@@ -60,7 +65,11 @@ import { CheckoutPaymentComponent } from './components/checkout/checkout-payment
     CheckoutAddressComponent,
     CheckoutDeliveryComponent,
     CheckoutReviewComponent,
-    CheckoutPaymentComponent
+    CheckoutPaymentComponent,
+    TextInputComponent,
+    CartSummaryComponent,
+    CheckoutSuccessComponent,
+    ContactComponent
 
   ],
   imports: [
@@ -72,7 +81,9 @@ import { CheckoutPaymentComponent } from './components/checkout/checkout-payment
     ReactiveFormsModule,
     BrowserAnimationsModule,
     CarouselModule.forRoot(),
-    CdkStepperModule
+    CdkStepperModule,
+    FormsModule,
+    GoogleMapsModule
   ],
   providers: [
     ProductService

@@ -40,7 +40,7 @@
 //   storage: Storage = sessionStorage;
 
 //   // Initialize Stripe API
-//   stripe = Stripe(environment.stripePublishableKey);
+  // stripe = Stripe(environment.stripePublishableKey);
 
 //   paymentInfo: PaymentInfo = new PaymentInfo();
 //   cardElement: any;

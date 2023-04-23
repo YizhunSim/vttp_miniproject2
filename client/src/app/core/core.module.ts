@@ -6,6 +6,7 @@ import { SectionHeaderComponent } from './section-header/section-header.componen
 import { BreadcrumbModule } from 'xng-breadcrumb';
 import { LoginStatusComponent } from '../components/login-status/login-status.component';
 import { CartStatusComponent } from '../components/cart-status/cart-status.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -21,6 +22,10 @@ import { CartStatusComponent } from '../components/cart-status/cart-status.compo
     CommonModule,
     RouterModule,
     BreadcrumbModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    })
   ],
   exports: [
     NavBarComponent,

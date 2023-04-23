@@ -1,0 +1,69 @@
+<div class="table-responsive" *ngIf="cartService.cartItems as cartItems">
+  <table class="table">
+    <thead class="text-uppercase" [class.bg-light]="isCart">
+      <tr>
+        <th><div class="py-2">Product</div></th>
+        <th><div class="py-2">Price</div></th>
+        <th [class.text-center]="!isCart"><div class="py-2">Quantity</div></th>
+        <th><div class="py-2">Total</div></th>
+        <th *ngIf="isCart"><div class="py-2">Remove</div></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cartItem of cartItems">
+        <th>
+          <div class="p-2 d-inline-block">
+            <img
+              src="{{ cartItem.imageUrl }}"
+              alt="{{ cartItem.name }}"
+              class="img-fluid"
+              style="max-height: 50px"
+            />
+            <div class="ms-3 d-inline-block align-middle">
+              <h5 class="mb-0">
+                <a routerLink="/products/{{ cartItem.id }}" class="text-dark text-decoration-none">
+                  {{ cartItem.name }}
+                </a>
+              </h5>
+            </div>
+          </div>
+        </th>
+        <td class="align-middle">
+          <strong>{{ cartItem.unitPrice | currency : "USD" }}</strong>
+        </td>
+        <td class="align-middle">
+          <div class="d-flex align-items-center"
+            [class.justify-content-center]="!isCart">
+            <i *ngIf="isCart"
+              (click)="removeCartItem(cartItem.id, 1)"
+              class="fa fa-minus-circle text-warning me-2"
+              style="cursor: pointer; font-size: 2em"
+            ></i>
+            <strong style="font-size: 1.2em">{{
+              cartItem.quantity
+            }}</strong>
+            <i *ngIf="isCart"
+              (click)="addCartItem(cartItem)"
+              class="fa fa-plus-circle text-warning mx-2"
+              style="cursor: pointer; font-size: 2em"
+            ></i>
+          </div>
+        </td>
+        <td class="align-middle">
+          <strong>{{
+            cartItem.unitPrice * cartItem.quantity | currency
+          }}</strong>
+        </td>
+        <td class="align-middle" *ngIf="isCart">
+          <a class="text-danger">
+            <i
+              (click)="removeCartItem(cartItem.id, cartItem.quantity)"
+              class="fa fa-trash"
+              style="font-size: 2em; cursor: pointer"
+            ></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

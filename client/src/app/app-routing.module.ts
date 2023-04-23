@@ -22,6 +22,8 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { HomeComponent } from './components/home/home.component';
+import { CheckoutSuccessComponent } from './components/checkout/checkout-success/checkout-success.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 const oktaConfig = myAppConfig.oidc;
 const oktaAuth = new OktaAuth(oktaConfig);
@@ -51,8 +53,12 @@ const routes: Routes = [
   { path: 'login/callback', component: OktaCallbackComponent },
   { path: 'login', component: LoginComponent },
 
+  { path: 'contact', component: ContactComponent},
+
   { path: 'checkout', component: CheckoutComponent },
+  { path: 'checkout/success', component: CheckoutSuccessComponent},
   { path: 'cart-details', component: CartDetailsComponent },
+
   { path: 'products/:id', component: ProductDetailsComponent, data: {breadcrumb: {alias: 'productDetails'}}},
   { path: 'search/:keyword', component: ProductListComponent },
   { path: 'category/:id/:name/:sort', component: ProductListComponent },

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { CartItem } from '../common/cart-item';
+import { DeliveryMethod } from '../common/delivery-method';
 import { Product } from '../common/product';
+import { CheckoutService } from './checkout.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,9 @@ export class CartService {
   // storage: Storage = localStorage
   storage: Storage = sessionStorage
 
-  constructor() {
+  shipping = 0
+
+  constructor(private checkoutService: CheckoutService) {
     // Read data from storage
     let data = JSON.parse(this.storage.getItem('cartItems')!);
 
@@ -25,6 +29,16 @@ export class CartService {
       // compute totals based on the data that is read from storage
       this.computeCartTotals();
     }
+  }
+
+  getCurrentBasketValue() {
+    return this.cartItems;
+  }
+
+
+  setShippingPrice(deliveryMethod: DeliveryMethod){
+    this.shipping = deliveryMethod.price
+    this.computeCartTotals()
   }
 
 
@@ -65,29 +79,17 @@ export class CartService {
     if (!cart) return;
     const existingItem = cart.find(tempCartItem => tempCartItem.id === id);
     if (existingItem) {
+      console.log(`removeItemFromCart: ${existingItem.id}, ${existingItem.name}, ${existingItem.unitPrice}, quantity: ${quantity}`)
       existingItem.quantity -= quantity;
       if (existingItem.quantity === 0) {
         this.remove(existingItem);
       }
     }
+
+    // compute cart total price and total quantity
+    this.computeCartTotals();
   }
 
-
-  // private addOrUpdateItem(items: CartItem[], itemToAdd: CartItem, quantity: number): CartItem[] {
-  //   const item = items.find(x => x.id === itemToAdd.id);
-  //   if (item) item.quantity += quantity;
-  //   else {
-  //     itemToAdd.quantity = quantity;
-  //     items.push(itemToAdd);
-  //   }
-  //   return items;
-  // }
-
-  // private createBasket(): Basket {
-  //   const basket = new Basket();
-  //   localStorage.setItem('basket_id', basket.id);
-  //   return basket;
-  // }
 
   private mapProductItemToBasketItem(item: Product, quantity: number): CartItem {
     return {
@@ -99,9 +101,6 @@ export class CartService {
     }
   }
 
-
-
-
   computeCartTotals() {
     let totalPriceValue: number = 0
     let totalQuantityValue: number = 0
@@ -110,6 +109,8 @@ export class CartService {
       totalPriceValue += currentCartItem.quantity * currentCartItem.unitPrice;
       totalQuantityValue += currentCartItem.quantity;
     }
+
+    totalPriceValue += this.shipping
 
     // publish the new values ... all subscribers will receive the new data
     this.totalPrice.next(totalPriceValue);

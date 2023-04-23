@@ -15,7 +15,7 @@ public class SecurityConfiguration {
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // protect endpoint /api/orders
         http.authorizeHttpRequests(requests -> requests
-                .requestMatchers("/api/orders/**")
+                .requestMatchers("/api/orders/**", "/api/delivery-methods/**")
                 .authenticated()
                 .anyRequest().permitAll())
                 .oauth2ResourceServer()

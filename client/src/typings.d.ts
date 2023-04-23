@@ -1,5 +1,5 @@
 /*
 Provides type information for Javascript libraries
  */
-declare var Stripe: any;
+declare var StripeKey: string;
 declare var elements: any;
