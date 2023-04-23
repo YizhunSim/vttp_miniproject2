@@ -17,7 +17,7 @@ SET FOREIGN_KEY_CHECKS=1;
 --
 -- Table structure for table `address`
 --
-CREATE TABLE `address` (
+CREATE TABLE IF NOT EXISTS `full-stack-ecommerce`.`address` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `city` varchar(255) DEFAULT NULL,
   `country` varchar(255) DEFAULT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE `address` (
 --
 -- Table structure for table `customer`
 --
-CREATE TABLE `customer` (
+CREATE TABLE IF NOT EXISTS `full-stack-ecommerce`.`customer` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE `customer` (
 --
 -- Table structure for table `orders`
 --
-CREATE TABLE `orders` (
+CREATE TABLE IF NOT EXISTS `full-stack-ecommerce`.`orders` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `order_tracking_number` varchar(255) DEFAULT NULL,
   `total_price` decimal(19,2) DEFAULT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE `orders` (
 --
 -- Table structure for table `order_items`
 --
-CREATE TABLE `order_item` (
+CREATE TABLE IF NOT EXISTS `full-stack-ecommerce`.`order_item` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `image_url` varchar(255) DEFAULT NULL,
   `quantity` int DEFAULT NULL,

@@ -8,7 +8,7 @@ SET foreign_key_checks = 0;
 
 DROP TABLE IF EXISTS `country`;
 
-CREATE TABLE `country` (
+CREATE TABLE IF NOT EXISTS `full-stack-ecommerce`.`country`(
   `id` smallint unsigned NOT NULL,
   `code` varchar(2) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
@@ -33,7 +33,7 @@ INSERT INTO `country` VALUES
 
 DROP TABLE IF EXISTS `state`;
 
-CREATE TABLE `state` (
+CREATE TABLE IF NOT EXISTS `full-stack-ecommerce`.`state` (
   `id` smallint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `country_id` smallint unsigned NOT NULL,

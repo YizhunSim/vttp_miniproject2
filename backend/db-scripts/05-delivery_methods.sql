@@ -8,7 +8,7 @@ SET foreign_key_checks = 0;
 
 DROP TABLE IF EXISTS `delivery_methods`;
 
-CREATE TABLE `delivery_methods` (
+CREATE TABLE IF NOT EXISTS `full-stack-ecommerce`.`delivery_methods` (
   `id` smallint unsigned NOT NULL,
   `short_name` varchar(4) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
