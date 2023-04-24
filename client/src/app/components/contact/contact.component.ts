@@ -49,6 +49,7 @@ export class ContactComponent implements OnInit {
 
   onSubmit() {
     // Handle form submission here
+    console.info('Submitted form');
     console.log(this.contactData);
     this.customerEnquiry
       .sendCustomerEnquiry(this.contactData)
