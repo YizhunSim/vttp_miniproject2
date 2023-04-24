@@ -41,6 +41,7 @@ import { CartSummaryComponent } from './components/cart-summary/cart-summary.com
 import { CheckoutSuccessComponent } from './components/checkout/checkout-success/checkout-success.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { ImageUploadComponentComponent } from './vision/image-upload-component/image-upload-component.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
     TextInputComponent,
     CartSummaryComponent,
     CheckoutSuccessComponent,
-    ContactComponent
+    ContactComponent,
+    ImageUploadComponentComponent
 
   ],
   imports: [
