@@ -27,6 +27,7 @@
     "@okta/okta-auth-js": "^6.4.0",
     "@okta/okta-signin-widget": "^6.2.0",
     "@paralleldrive/cuid2": "^2.2.0",
+    "@popperjs/core": "^2.11.7",
     "@stripe/stripe-js": "^1.52.1",
     "bootstrap": "^5.2.0",
     "ngx-bootstrap": "^10.2.0",
