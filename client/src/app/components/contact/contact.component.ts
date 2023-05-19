@@ -16,7 +16,7 @@ export class ContactComponent implements OnInit {
   map: any;
   contactData = { name: '', email: '', message: '' };
 
-  api_key = 'AIzaSyCVa8UXORLRG9SUpzPy9_aBNHbdo7eAH7Q';
+  api_key = 'AIzaSyBORVqm3teiVb5TdTFLEk8Wo4oRxoxw5y0';
 
   constructor(
     private customerEnquiry: CustomerEnquiryService,
